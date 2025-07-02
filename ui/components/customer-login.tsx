@@ -28,7 +28,6 @@ export function CustomerLogin({ onLogin }: CustomerLoginProps) {
     setError("");
 
     try {
-      // Use the new user endpoint that handles both registration_id and QR code
       const response = await fetch(`http://localhost:8000/user/${identifier}`, {
         method: "GET",
         headers: {
@@ -47,7 +46,6 @@ export function CustomerLogin({ onLogin }: CustomerLoginProps) {
 
       const userData = await response.json();
       
-      // Validate user data
       if (!userData || !userData.name || !userData.account_number) {
         setError("Invalid user data received. Please try again.");
         return;
@@ -64,18 +62,10 @@ export function CustomerLogin({ onLogin }: CustomerLoginProps) {
   const handleQRScan = () => {
     setIsScanning(true);
     
-    // Simulate QR code scanning - in a real app, you'd use a camera library
-    // For demo purposes, we'll show a modal or use a predefined QR code
-    const demoQRCodes = [
-      "0c671788-28a8-48e0-8f6f-4d099f0fbd46",
-      "1d782899-39b9-59f1-9g7g-5e1aacb1fc57",
-      "2e893aaa-4ac0-6af2-ah8h-6f2bbdcb2gd68"
-    ];
-    
-    // Simulate scanning delay
+    // Simulate QR code scanning with valid UUID
     setTimeout(() => {
-      const randomQR = demoQRCodes[Math.floor(Math.random() * demoQRCodes.length)];
-      setIdentifier(randomQR);
+      const validQR = "0c671788-28a8-48e0-8f6f-4d099f0fbd46";
+      setIdentifier(validQR);
       setIsScanning(false);
       setError("");
     }, 2000);
